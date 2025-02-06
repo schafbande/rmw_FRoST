@@ -36,6 +36,16 @@ typedef enum RMW_PUBLIC_TYPE rmw_qos_policy_kind_e
   RMW_QOS_POLICY_DEPTH = 1 << 7,
   RMW_QOS_POLICY_LIVELINESS_LEASE_DURATION = 1 << 8,
   RMW_QOS_POLICY_AVOID_ROS_NAMESPACE_CONVENTIONS = 1 << 9,
+  // ===================================================
+  /*
+  * FRoST Implementation of Ownership QoS
+  * -------------------------------------
+  * implementation of ownership QoS
+  * TODO: check, if bitshift works like intended
+  */
+  RMW_QOS_POLICY_OWNERSHIP = 1 << 10,
+  RMW_QOS_POLICY_OWNERSHIP_STRENGTH = 1 << 11,
+  // ===================================================
 } rmw_qos_policy_kind_t;
 
 #ifdef __cplusplus

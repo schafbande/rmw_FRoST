@@ -118,6 +118,24 @@ typedef struct RMW_PUBLIC_TYPE rmw_publisher_options_s
   rmw_unique_network_flow_endpoints_requirement_t require_unique_network_flow_endpoints;
 } rmw_publisher_options_t;
 
+// ===================================================
+/*
+ * FRoST Implementation of Ownership QoS
+ * -------------------------------------
+ * struct that contains the ownership kind and strength. The contents
+ * get casted in the rmw_publisher_options_t struct during publisher creation   
+ * 
+ * BE ADVISED: Chat GPT suggestion, check if needed
+ */
+//struct CustomPublisherOptions
+//{
+  // Enable or disable Ownership QoS
+//  bool enable_ownership;
+  // choose the Ownership Strength
+//  int32_t ownership_strength;
+//};
+// ===================================================
+
 /// Structure which encapsulates an rmw publisher
 typedef struct RMW_PUBLIC_TYPE rmw_publisher_s
 {
@@ -571,6 +589,39 @@ typedef enum RMW_PUBLIC_TYPE rmw_qos_liveliness_policy_e
  */
 #define RMW_QOS_LIVELINESS_LEASE_DURATION_BEST_AVAILABLE {9223372036LL, 854775806LL}
 
+// ===================================================
+/*
+ * FRoST Implementation of Ownership QoS
+ * -------------------------------------
+ * define ownership (possibly struct, look at other policies)
+ * TODO: implement ownership Strength
+ */
+/// QoS history enumerations describing how samples endure
+typedef enum RMW_PUBLIC_TYPE rmw_qos_ownership_policy_e
+{
+  /// Implementation default for history policy
+  RMW_QOS_POLICY_OWNERSHIP_SYSTEM_DEFAULT,
+  
+  /// Implementation default for ownership policy
+  RMW_QOS_POLICY_OWNERSHIP_SHARED,
+
+  /// Alternative way of handling ownership
+  RMW_QOS_POLICY_OWNERSHIP_EXCLUSIVE,
+
+  /// Ownership Qos Policy has not been set yet
+  RMW_QOS_POLICY_OWNERSHIP_UNKNOWN,
+
+  /**
+   * EXCLUSIVE ownership results in only the dataWriter with the 
+   * highest OWNERSHIP_STRENGTH being able to publish data
+   * 
+   * https://www.omgwiki.org/ddsf/doku.php?id=ddsf:public:guidebook:06_append:02_quality_of_service:ownership
+   * 
+   */
+} rmw_qos_ownership_policy_t;
+// ===================================================
+
+
 /// ROS MiddleWare quality of service profile.
 typedef struct RMW_PUBLIC_TYPE rmw_qos_profile_s
 {
@@ -616,6 +667,21 @@ typedef struct RMW_PUBLIC_TYPE rmw_qos_profile_s
    * with a ROS 2 topic.
    */
   bool avoid_ros_namespace_conventions;
+
+  // ===================================================
+  /*
+  * FRoST Implementation of Ownership QoS
+  * -------------------------------------
+  * implement ownership implementation (line 590)
+  * unknown, if ownership strength i sneeded as well (suspected yes)
+  */
+  /// Ownership kind (SHARED or EXCLUSIVE)
+  enum rmw_qos_ownership_policy_e ownership;
+
+  /// Strength of Ownership
+  size_t ownership_strength;
+  // ===================================================
+
 } rmw_qos_profile_t;
 
 /// Globally unique identifier for a ROS graph entity

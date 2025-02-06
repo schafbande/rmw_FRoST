@@ -37,6 +37,19 @@ rmw_qos_policy_kind_to_str(rmw_qos_policy_kind_t kind)
       return "liveliness_lease_duration";
     case RMW_QOS_POLICY_AVOID_ROS_NAMESPACE_CONVENTIONS:
       return "avoid_ros_namespace_conventions";
+
+    // ===================================================
+    /*
+    * FRoST Implementation of Ownership QoS
+    * -------------------------------------
+    *  
+    */
+    case RMW_QOS_POLICY_OWNERSHIP:
+      return "ownership";
+    case RMW_QOS_POLICY_OWNERSHIP_STRENGTH:
+      return "ownership_strength";
+    // ===================================================
+
     case RMW_QOS_POLICY_INVALID:  // fallthrough
     default:
       return NULL;
@@ -113,6 +126,30 @@ rmw_qos_reliability_policy_to_str(enum rmw_qos_reliability_policy_e value)
   }
 }
 
+// ===================================================
+/*
+* FRoST Implementation of Ownership QoS
+* -------------------------------------
+*  
+*/
+const char*
+rmw_qos_ownership_policy_to_str(enum rmw_qos_ownership_policy_e value)
+{
+  switch (value)
+  {
+    case RMW_QOS_POLICY_OWNERSHIP_SYSTEM_DEFAULT:
+      return "system_default";
+    case RMW_QOS_POLICY_OWNERSHIP_SHARED:
+      return "shared";
+    case RMW_QOS_POLICY_OWNERSHIP_EXCLUSIVE:
+      return "exclusive";
+    case RMW_QOS_POLICY_OWNERSHIP_UNKNOWN:  //fallthrough
+    default:
+      return NULL;
+  }
+}
+// ===================================================
+
 #define RMW_QOS_STREQ_WITH_LITERAL(string_literal, string) \
   (0 == strncmp(string_literal, str, sizeof(string_literal)))
 
@@ -147,6 +184,21 @@ rmw_qos_policy_kind_from_str(const char * str)
   if (RMW_QOS_STREQ_WITH_LITERAL("avoid_ros_namespace_conventions", str)) {
     return RMW_QOS_POLICY_AVOID_ROS_NAMESPACE_CONVENTIONS;
   }
+
+  // ===================================================
+  /*
+  * FRoST Implementation of Ownership QoS
+  * -------------------------------------
+  *  
+  */
+  if (RMW_QOS_STREQ_WITH_LITERAL("ownership", str)) {
+    return RMW_QOS_POLICY_OWNERSHIP;
+  }
+  if (RMW_QOS_STREQ_WITH_LITERAL("ownership_strength", str)) {
+    return RMW_QOS_POLICY_OWNERSHIP_STRENGTH;
+  }
+  // ===================================================
+
   return RMW_QOS_POLICY_INVALID;
 }
 
@@ -222,3 +274,26 @@ rmw_qos_reliability_policy_from_str(const char * str)
   }
   return RMW_QOS_POLICY_RELIABILITY_UNKNOWN;
 }
+
+  // ===================================================
+  /*
+  * FRoST Implementation of Ownership QoS
+  * -------------------------------------
+  *  
+  */
+enum rmw_qos_ownership_policy_e
+rmw_qos_ownership_policy_from_str(const char * str)
+{
+  RMW_CHECK_ARGUMENT_FOR_NULL(str, RMW_QOS_POLICY_OWNERSHIP_UNKNOWN);
+  if (RMW_QOS_STREQ_WITH_LITERAL("system_default", str)) {
+    return RMW_QOS_POLICY_OWNERSHIP_SYSTEM_DEFAULT;
+  }
+  if (RMW_QOS_STREQ_WITH_LITERAL("shared", str)) {
+    return RMW_QOS_POLICY_OWNERSHIP_SHARED;
+  }
+  if (RMW_QOS_STREQ_WITH_LITERAL("exclusive", str)) {
+    return RMW_QOS_POLICY_OWNERSHIP_EXCLUSIVE;
+  }
+  return RMW_QOS_POLICY_RELIABILITY_UNKNOWN;
+}
+  // ===================================================
