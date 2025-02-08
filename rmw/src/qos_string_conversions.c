@@ -294,6 +294,6 @@ rmw_qos_ownership_policy_from_str(const char * str)
   if (RMW_QOS_STREQ_WITH_LITERAL("exclusive", str)) {
     return RMW_QOS_POLICY_OWNERSHIP_EXCLUSIVE;
   }
-  return RMW_QOS_POLICY_RELIABILITY_UNKNOWN;
+  return RMW_QOS_POLICY_OWNERSHIP_UNKNOWN;
 }
   // ===================================================

@@ -99,6 +99,20 @@ RMW_PUBLIC
 const char *
 rmw_qos_reliability_policy_to_str(rmw_qos_reliability_policy_t value);
 
+// ===================================================
+/*
+* FRoST Implementation of Ownership QoS
+* -------------------------------------
+*/
+/// Return a string representing the policy value.
+/**
+ * See \ref rmw_qos_durability_policy_to_str() for more details.
+ */
+RMW_PUBLIC
+const char *
+rmw_qos_ownership_policy_to_str(rmw_qos_ownership_policy_t value);
+// ===================================================
+
 /// Return a policy kind based on the provided string.
 /**
  * Returns the policy kind represented by the provided string, or
@@ -169,6 +183,20 @@ rmw_qos_liveliness_policy_from_str(const char * str);
 RMW_PUBLIC
 rmw_qos_reliability_policy_t
 rmw_qos_reliability_policy_from_str(const char * str);
+
+// ===================================================
+/*
+* FRoST Implementation of Ownership QoS
+* -------------------------------------
+*/
+/// Return a enum value based on the provided string.
+/**
+ * See \ref rmw_qos_durability_policy_from_str() for more details.
+ */
+RMW_PUBLIC
+rmw_qos_ownership_policy_t
+rmw_qos_ownership_policy_from_str(const char * str);
+// ===================================================
 
 #ifdef __cplusplus
 }
