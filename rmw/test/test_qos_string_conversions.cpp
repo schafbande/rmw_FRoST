@@ -78,6 +78,16 @@ TEST(test_qos_policy_stringify, test_policy_kinds) {
   TEST_QOS_POLICY_KIND_STRINGIFY(RMW_QOS_POLICY_LIVELINESS_LEASE_DURATION);
   TEST_QOS_POLICY_KIND_STRINGIFY(RMW_QOS_POLICY_AVOID_ROS_NAMESPACE_CONVENTIONS);
 
+  // ===================================================
+  /*
+  * FRoST Implementation of Ownership QoS
+  * -------------------------------------
+  * 
+  */
+  TEST_QOS_POLICY_KIND_STRINGIFY(RMW_QOS_POLICY_OWNERSHIP);
+  TEST_QOS_POLICY_KIND_STRINGIFY(RMW_QOS_POLICY_OWNERSHIP_STRENGTH);
+  // ===================================================
+
   EXPECT_EQ(RMW_QOS_POLICY_INVALID, rmw_qos_policy_kind_from_str(NULL));
   EXPECT_EQ(RMW_QOS_POLICY_INVALID, rmw_qos_policy_kind_from_str("this is not a policy kind!"));
   EXPECT_FALSE(rmw_qos_policy_kind_to_str(RMW_QOS_POLICY_INVALID));
